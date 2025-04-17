@@ -45,8 +45,8 @@ for(i in 1:length(years)){
   colnames(tmp) <- c("date", "lon", "lat", "flag", "fishing_hours")
   tmp$date <- ym(tmp$"date")
   #put longitude on 0-360
-  ii <- which(gfw$cell_ll_lon < 0)
-  tmp$cell_ll_lon[ii] <- 360 + gfw$cell_ll_lon[ii]
+  ii <- which(gfw$lon < 0)
+  tmp$lon[ii] <- 360 + gfw$lon[ii]
   gfw[[i]] <- tmp
 }
 gfw_ll_hi <- do.call("rbind", gfw)
@@ -65,8 +65,8 @@ tmp <- get_raster(
   spatial_resolution = 'HIGH',
   temporal_resolution = 'MONTHLY',
   group_by = 'FLAGANDGEARTYPE',
-  start_date = sdate[i],
-  end_date = edate[i],
+  start_date = sdate,
+  end_date = edate,
   region_source = 'USER_SHAPEFILE',
   region = bb_poly,
   key = key
@@ -78,7 +78,7 @@ colnames(tmp) <- c("date", "lon", "lat", "flag", "fishing_hours")
 tmp$date <- ym(tmp$"date")
 #put longitude on 0-360
 ii <- which(gfw$cell_ll_lon < 0)
-tmp$cell_ll_lon[ii] <- 360 + gfw$cell_ll_lon[ii]
+tmp$ll_lon[ii] <- 360 + gfw$lon[ii]
 #merge with previous file
 load("/Users/robert.ahrens/Documents/data/gfw/gfw_dll_hi_2012_2023.Rdata")
 gfw_ll_hi <- rbind(gfw_ll_hi, tmp)
@@ -86,7 +86,3 @@ gfw_ll_hi <- rbind(gfw_ll_hi, tmp)
 file_name <- paste0("gfw_ll_hi_", min(year(gfw_dll_hi$date)),"_",max(year(gfw_dll_hi$date)),".Rdata")
 dir_path <- "/Users/robert.ahrens/Documents/data/gfw/"
 save(gfw_ll_hi, file = paste0(dir_path, file_name))
-
-
-
-
