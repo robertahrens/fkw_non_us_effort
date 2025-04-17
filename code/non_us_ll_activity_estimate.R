@@ -118,7 +118,7 @@ for(i in seq_along(gfw_prop_area$flag_ind)){
 }
 
 # read in WCPFC 5x5 longline data from https://www.wcpfc.int/public-domain
-wcpfc_ll <- read.csv(file.path(main_dir, "data", "WCPFC_L_PUBLIC_BY_FLAG_MON_8/WCPFC_L_PUBLIC_BY_FLAG_MON.CSV"))
+wcpfc_ll <- read.csv(file.path(main_dir, "data", "WCPFC_L_PUBLIC_BY_FLAG_MON.CSV"))
 wcpfc_ll <- wcpfc_ll[, c("yy", "mm", "flag_id", "lat_short", "lon_short", "cwp_grid", "hhooks")]
 wcpfc_ll <- wcpfc_ll[which(wcpfc_ll$flag_id %in% c("CN", "JP", "KR", "TW", "US", "VU")),]
 wcpfc_ll <- wcpfc_ll[which(wcpfc_ll$yy >= syr & wcpfc_ll$yy <= eyr),]
@@ -149,7 +149,7 @@ for(i in seq_along(wcpo_area_eff$flag_ind)){
 }
 
 # read in IATTC 5x5 longline data from https://www.iattc.org/en-us/Data/Public-domain
-iattc_ll <- read.csv(file.path(main_dir, "data", "PublicLLTunaBillfish/PublicLLTunaBillfishNum.csv"))
+iattc_ll <- read.csv(file.path(main_dir, "data", "PublicLLTunaBillfishNum.csv"))
 iattc_ll <- iattc_ll[, c("Year", "Flag", "LatC5", "LonC5", "Hooks", "ALBn", "BETn", "YFTn", "SWOn")]
 iattc_ll <- iattc_ll[which(iattc_ll$Year >= syear & iattc_ll$Year <= eyear), ]
 iattc_ll <- iattc_ll[which(iattc_ll$Flag %in% c("CHN", "JPN", "KOR", "TWN", "USA", "VUT")), ]
